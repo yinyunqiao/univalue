@@ -13,7 +13,8 @@ pkgconfig_DATA = pc/libunivalue.pc
 libunivalue_la_SOURCES = \
 	lib/univalue.cpp \
 	lib/univalue_read.cpp \
-	lib/univalue_write.cpp
+	lib/univalue_write.cpp \
+	lib/univalue_token.cpp
 
 libunivalue_la_LDFLAGS = \
 	-version-info $(LIBUNIVALUE_CURRENT):$(LIBUNIVALUE_REVISION):$(LIBUNIVALUE_AGE) \
