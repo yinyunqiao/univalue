@@ -45,6 +45,25 @@ AC_SUBST(LIBUNIVALUE_AGE)
 LT_INIT
 LT_LANG([C++])
 
+dnl Coverage
+AC_MSG_CHECKING([whether to code coverage])
+AC_ARG_ENABLE([coverage],
+	[AS_HELP_STRING([--enable-coverage],[generate code coverage instrumentation])],
+	[],
+	[enable_coverage=no])
+AC_MSG_RESULT([$enable_coverage])
+
+AS_IF([test "$enable_coverage" = "yes"], [
+	AC_PATH_PROG(GCOV, gcov, no)
+	AS_IF([test "$GCOV" = "no"], [
+		AC_MSG_ERROR(gcov tool is not available)])
+	AC_PATH_PROG(LCOV, lcov, no)
+	AS_IF([test "$LCOV" = "no"], [
+		AC_MSG_ERROR(lcov tool is not installed)])
+	CXXFLAGS="$CXXFLAGS -O1 -fprofile-arcs -ftest-coverage"
+	CFLAGS="$CFLAGS -O1 -fprofile-arcs -ftest-coverage"
+])
+
 case $host in
   *mingw*)
     LIBTOOL_APP_LDFLAGS="$LIBTOOL_APP_LDFLAGS -all-static"
